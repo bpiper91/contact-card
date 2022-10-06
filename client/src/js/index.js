@@ -15,6 +15,9 @@ import Logo from '../images/logo.png';
 import Bear from '../images/bear.png';
 import Dog from '../images/dog.png';
 
+// install button
+const installBtn = document.getElementById('installBtn');
+
 // On load functionality
 window.addEventListener('load', function () {
     initdb();
@@ -106,3 +109,21 @@ if ('serviceWorker' in navigator) {
         navigator.serviceWorker.register('./service-worker.js');
     })
 };
+
+// checks beforeinstallprompt and sets visibility of the button to visible
+window.addEventListener('beforeinstallprompt', (event) => {
+    event.preventDefault();
+    installBtn.style.visibility = 'visible';
+
+    // listen for install button click and change button after installation
+    installBtn.addEventListener('click', () => {
+        event.prompt();
+        installBtn.setAttribute('disabled', true);
+        installBtn.textContent = 'Installed!';
+    });
+});
+
+// check whether app has been installed
+window.addEventListener('appinstalled', (event) => {
+    console.log('👍', 'appinstalled', event);
+  });
