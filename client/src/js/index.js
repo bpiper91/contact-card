@@ -1,11 +1,11 @@
 // import modules
-    // import "./form";
+// import "./form";
 import { toggleForm, clearForm } from "./form";
 // import "./submit";
 import { fetchCards } from './cards';
 
 // import database functions
-import { initdb, getDb, postDb } from './database';
+import { initdb, getDb, postDb, deleteDb } from './database';
 
 
 // import images
@@ -62,3 +62,13 @@ window.addEventListener('load', function () {
         fetchCards();
     });
 });
+
+// delete functionality
+window.deleteCard = (e) => {
+    // Grabs the id from the button element attached to the contact card.
+    let id = parseInt(e.id);
+    // Delete the card
+    deleteDb(id);
+    // Reload the DOM
+    fetchCards();
+};
